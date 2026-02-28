@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thumbnail Portfolio | Design Moderno</title>
+    <title>Thumbnail Portfolio | Pedro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -18,13 +20,34 @@
             <div class="container hero-container">
                 <div class="hero-image">
                     <div class="profile-frame">
-                        <img src="images/profile-icon.webp" alt="Foto de Perfil">
+                        <img src="images/profile draw.jpg" alt="Pedro">
                     </div>
                 </div>
                 <div class="hero-content">
-                    <h1>Olá, eu sou o <span class="accent">Designer</span></h1>
-                    <p>Especialista em criar layouts modernos e experiências visuais impactantes. Transformo ideias em
-                        designs memoráveis com foco em estética e funcionalidade.</p>
+                    <h1>Hi :) I'm <span class="accent">Pedro.</span></h1>
+                    <p>I'm a professional thumbmaker with over 2 years of experience turning scrollers into viewers. I
+                        craft high-impact thumbnails that actually get clicks and grow channels. I'd love to work with
+                        you!</p>
+
+                    <!-- Speed Dial Contact -->
+                    <div class="speed-dial-container">
+                        <button class="main-dial-btn" id="mainDial">
+                            <span>Let's Talk</span>
+                            <i class="fa-solid fa-message btn-icon"></i>
+                        </button>
+                        <div class="dial-options">
+                            <a href="mailto:pedromanoelmcr@gmail.com" class="dial-btn" title="Email">
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
+                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <button class="dial-btn" id="copyDiscord" title="Copy Discord ID">
+                                <i class="fa-brands fa-discord"></i>
+                                <span class="tooltip" id="discordTooltip">Copied!</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -64,6 +87,32 @@
             </div>
         </section>
     </main>
+
+    <script>
+        // Discord Copy Logic
+        const copyBtn = document.getElementById('copyDiscord');
+        const tooltip = document.getElementById('discordTooltip');
+        const discordId = 'pedro.7911';
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(discordId).then(() => {
+                tooltip.classList.add('show');
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                }, 2000);
+            });
+        });
+
+        // Speed Dial Toggle for Mobile (Optional click support)
+        const mainDial = document.getElementById('mainDial');
+        const dialContainer = document.querySelector('.speed-dial-container');
+
+        mainDial.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                dialContainer.classList.toggle('active');
+            }
+        });
+    </script>
 </body>
 
 </html>

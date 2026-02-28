@@ -36,9 +36,10 @@
                             <i class="fa-solid fa-message btn-icon"></i>
                         </button>
                         <div class="dial-options">
-                            <a href="mailto:pedromanoelmcr@gmail.com" class="dial-btn" title="Email">
+                            <button class="dial-btn" id="copyEmail" title="Copy Email">
                                 <i class="fa-solid fa-envelope"></i>
-                            </a>
+                                <span class="tooltip" id="emailTooltip">Copied!</span>
+                            </button>
                             <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
                                 <i class="fa-brands fa-x-twitter"></i>
                             </a>
@@ -85,31 +86,93 @@
                     </div>
                 </div>
             </div>
-        </section>
     </main>
 
+    <!-- Floating Action Menu (FAM) - Root Level -->
+    <div class="fam-container" id="famContainer">
+        <div class="fam-options">
+            <button class="fam-btn" id="famCopyEmail" title="Copy Email">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="tooltip" id="famEmailTooltip">Copied!</span>
+            </button>
+            <a href="https://x.com/pedro4thumbs" target="_blank" class="fam-btn" title="X / Twitter">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <button class="fam-btn" id="famCopyDiscord" title="Copy Discord ID">
+                <i class="fa-brands fa-discord"></i>
+                <span class="tooltip" id="famDiscordTooltip">Copied!</span>
+            </button>
+        </div>
+        <button class="fam-main-btn" id="famMainBtn" title="Contact">
+            <i class="fa-solid fa-message"></i>
+        </button>
+    </div>
+
     <script>
-        // Discord Copy Logic
-        const copyBtn = document.getElementById('copyDiscord');
-        const tooltip = document.getElementById('discordTooltip');
-        const discordId = 'pedro.7911';
+        // Copy functionality helper with visual feedback
+        function setupClipboardCopy(btnId, tooltipId, textToCopy) {
+            const btn = document.getElementById(btnId);
+            const tooltip = document.getElementById(tooltipId);
+            if (!btn || !tooltip) return;
 
-        copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(discordId).then(() => {
-                tooltip.classList.add('show');
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                }, 2000);
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Visual feedback
+                    btn.classList.add('active-copy');
+                    tooltip.classList.add('show');
+
+                    setTimeout(() => {
+                        btn.classList.remove('active-copy');
+                        tooltip.classList.remove('show');
+                    }, 2000); // Increased to 2 seconds
+                });
             });
-        });
+        }
 
-        // Speed Dial Toggle for Mobile (Optional click support)
+        // Setup Buttons (Hero)
+        setupClipboardCopy('copyEmail', 'emailTooltip', 'pedromanoelmcr@gmail.com');
+        setupClipboardCopy('copyDiscord', 'discordTooltip', 'pedro.7911');
+
+        // Setup Buttons (FAM)
+        setupClipboardCopy('famCopyEmail', 'famEmailTooltip', 'pedromanoelmcr@gmail.com');
+        setupClipboardCopy('famCopyDiscord', 'famDiscordTooltip', 'pedro.7911');
+
+        // Speed Dial Toggle for Mobile
         const mainDial = document.getElementById('mainDial');
         const dialContainer = document.querySelector('.speed-dial-container');
+        const mainIcon = mainDial ? mainDial.querySelector('i') : null;
 
-        mainDial.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                dialContainer.classList.toggle('active');
+        if (mainDial) {
+            mainDial.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    dialContainer.classList.toggle('active');
+
+                    if (mainIcon) {
+                        if (dialContainer.classList.contains('active')) {
+                            mainIcon.className = 'fa-solid fa-plus btn-icon';
+                        } else {
+                            mainIcon.className = 'fa-solid fa-message btn-icon';
+                        }
+                    }
+                }
+            });
+        }
+
+        // Floating Action Menu (FAM) Toggle
+        const famMainBtn = document.getElementById('famMainBtn');
+        const famContainer = document.getElementById('famContainer');
+
+        if (famMainBtn) {
+            famMainBtn.addEventListener('click', () => {
+                famContainer.classList.toggle('active');
+            });
+        }
+
+        // Close FAM when clicking outside
+        document.addEventListener('click', (e) => {
+            if (famContainer && !famContainer.contains(e.target)) {
+                famContainer.classList.remove('active');
             }
         });
     </script>

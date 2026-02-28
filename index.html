@@ -108,6 +108,62 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section class="workflow" id="workflow">
+            <div class="container">
+                <h2>Advanced and <span style="color: #b9110e;">Validated</span> Methods</h2>
+                <p class="workflow-subtitle">I eliminate the friction of professional photoshoots. Give me a video
+                    frame, and I’ll deliver a high-end masterpiece.</p>
+
+                <div class="workflow-visual">
+                    <div class="input-source portfolio-grid" id="source-frame-container">
+                        <div class="workflow-badge">INPUT</div>
+                        <img src="images/frame-video.webp" alt="Video Frame Input">
+                    </div>
+
+                    <div class="connector-lines">
+                        <div class="line"></div>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+
+                    <div class="output-grid portfolio-grid">
+                        <div class="workflow-badge">OUTPUT</div>
+                        <div class="output-item">
+                            <img src="images/pro-photo1.webp" alt="Pro Result 1">
+                        </div>
+                        <div class="output-item">
+                            <img src="images/pro-photo2.webp" alt="Pro Result 2">
+                        </div>
+                        <div class="output-item">
+                            <img src="images/pro-photo3.webp" alt="Pro Result 3">
+                        </div>
+                        <div class="output-item">
+                            <img src="images/pro-photo4.webp" alt="Pro Result 4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-pillars">
+                    <div class="pillar">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h3>AI-Driven Production</h3>
+                        <p>Eliminate the need for expensive photoshoots. High-end quality from any source.</p>
+                    </div>
+                    <div class="pillar">
+                        <i class="fa-solid fa-brain"></i>
+                        <h3>Market Intelligence</h3>
+                        <p>I study your niche and audience psychology to find the visual hook that stops the scroll.</p>
+                    </div>
+                    <div class="pillar">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h3>Conversion-Focused</h3>
+                        <p>Color theory and lighting optimized for one goal: maximizing your CTR.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Floating Action Menu (FAM) - Root Level -->
@@ -232,12 +288,20 @@
                 // 1. Clicar na imagem da grade
                 if (e.target.matches('.portfolio-grid img')) {
                     const grid = e.target.closest('.portfolio-grid');
+                    const isSourceFrame = grid.id === 'source-frame-container';
+
                     const imgs = Array.from(grid.querySelectorAll('img'));
                     currentImages = imgs.map(img => img.src);
                     currentIndex = currentImages.indexOf(e.target.src);
 
                     modalImg.src = currentImages[currentIndex];
                     modal.style.display = 'flex';
+
+                    // Hide navigation if it's the single source frame
+                    const navBtns = modal.querySelectorAll('.g-nav-btn');
+                    navBtns.forEach(btn => {
+                        btn.style.display = isSourceFrame ? 'none' : 'flex';
+                    });
                 }
                 // 2. Navegação (Setas)
                 if (e.target.matches('.g-next')) changeImage(1);

@@ -724,9 +724,10 @@ body {
     }
 
     #g-modal-img {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 90vw;
+        max-height: 90vh;
         object-fit: contain !important;
+        /* PREVENT MODEL CUTTING */
         border-radius: 4px;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
         transform: scale(0.95);
@@ -855,194 +856,115 @@ body {
 }
 
 /* ==========================================================================
-   Workflow Section - Refined
+   Methods Section - Stable Version
    ========================================================================== */
-.workflow {
+.methods {
     padding: 8rem 0;
     background-color: var(--bg-color);
     text-align: center;
 }
 
-.workflow h2 {
+.methods h2 {
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     letter-spacing: -1px;
 }
 
-.workflow .accent {
-    color: var(--primary-red);
-}
-
-.workflow-subtitle {
-    font-size: 1rem;
+.methods-subtitle {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto 5rem;
+    max-width: 700px;
+    margin: 0 auto 4rem;
     line-height: 1.6;
 }
 
-.workflow-visual {
+.methods-container {
     display: flex;
-    align-items: flex-start;
-    /* Aligned with top of the grid */
-    justify-content: center;
-    gap: 4rem;
-    margin-bottom: 8rem;
-    position: relative;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.workflow-badge {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: var(--fw-bold);
-    color: var(--primary-red);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-}
-
-/* Input Source - Enhanced size & Original aspect */
-.input-source {
-    flex: 0 0 450px;
-    /* Generous width to match grid */
-    max-width: 450px;
-    text-align: center;
-    cursor: zoom-in;
-}
-
-.input-source img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: auto;
-    /* Removal of restriction */
-    object-fit: contain;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    filter: none;
-    /* No grayscale */
-    transition: transform 0.4s ease, border-color 0.4s ease;
-}
-
-.input-source:hover img {
-    transform: scale(1.02);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Connector Lines - Minimalist & Centered between tops */
-.connector-lines {
-    flex: 0 0 100px;
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    position: relative;
-    padding-top: 150px;
-    /* Offset to center relative to visual assets */
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.connector-lines .line {
-    width: 100%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+/* 1. Source Image */
+.method-source {
+    flex: 0 0 450px;
 }
 
-.connector-lines .line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
-    animation: flow-pulse 4s infinite ease-in-out;
-    opacity: 0.4;
+.method-source img {
+    width: 450px;
+    height: auto;
+    border-radius: 12px;
+    object-fit: contain;
+    cursor: zoom-in;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.connector-lines i {
-    background: var(--bg-color);
-    padding: 10px;
+.method-source img:hover {
+    transform: scale(1.02);
+}
+
+/* 2. Connector */
+.method-connector {
+    flex: 0 0 auto;
+}
+
+.method-connector i {
+    font-size: 2.5rem;
     color: var(--primary-red);
-    font-size: 1.8rem;
-    z-index: 1;
-    position: relative;
-    animation: wand-glow 2s infinite ease-in-out;
 }
 
-@keyframes wand-glow {
-
-    0%,
-    100% {
-        opacity: 0.7;
-        transform: scale(1);
-        filter: drop-shadow(0 0 0 rgba(185, 17, 14, 0));
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 12px rgba(185, 17, 14, 0.6));
-    }
+/* 3. Results Grid */
+.method-results {
+    flex: 0 0 450px;
 }
 
-@keyframes flow-pulse {
-
-    0%,
-    100% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.6;
-    }
-}
-
-/* Output Grid */
-.output-grid {
-    flex: 1;
-    max-width: 450px;
+.results-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    position: relative;
-    text-align: center;
 }
 
-.output-grid .workflow-badge {
-    grid-column: span 2;
-    justify-self: center;
-}
-
-.output-item {
-    cursor: zoom-in;
-}
-
-.output-item img {
+.results-grid img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 8px;
+    cursor: zoom-in;
     border: 1px solid rgba(185, 17, 14, 0.2);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    transition: transform 0.3s ease;
 }
 
-.output-item:hover img {
-    transform: scale(1.08);
-    box-shadow: 0 10px 30px rgba(185, 17, 14, 0.3);
-    border-color: var(--primary-red);
+.results-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .methods-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .method-source,
+    .method-results {
+        flex: 1;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .method-source img {
+        width: 100%;
+    }
+
+    .method-connector {
+        transform: rotate(90deg);
+    }
 }
 
 /* Workflow Pillars */

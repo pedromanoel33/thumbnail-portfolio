@@ -111,58 +111,54 @@
         </section>
 
         <!-- Workflow Section -->
-        <section class="workflow" id="workflow">
+        <section id="methods" class="methods">
             <div class="container">
-                <h2>Advanced and <span style="color: #b9110e;">Validated</span> Methods</h2>
-                <p class="workflow-subtitle">I eliminate the friction of professional photoshoots. Give me a video
-                    frame, and I’ll deliver a high-end masterpiece.</p>
+                <h2>Advanced and <span style='color: #b9110e;'>Validated</span> Methods</h2>
+                <p class="methods-subtitle">I eliminate the friction of professional photoshoots. Give me a video frame,
+                    and I’ll deliver a high-end masterpiece.</p>
 
-                <div class="workflow-visual">
-                    <div class="input-source portfolio-grid" id="source-frame-container">
-                        <div class="workflow-badge">INPUT</div>
+                <div class="methods-container">
+                    <!-- 1. Source Frame -->
+                    <div class="method-source portfolio-grid" id="source-frame-container">
                         <img src="images/frame-video.webp" alt="Video Frame Input">
                     </div>
 
-                    <div class="connector-lines">
-                        <div class="line"></div>
+                    <!-- 2. Connector -->
+                    <div class="method-connector">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                     </div>
 
-                    <div class="output-grid portfolio-grid">
-                        <div class="workflow-badge">OUTPUT</div>
-                        <div class="output-item">
+                    <!-- 3. Results Grid -->
+                    <div class="method-results portfolio-grid">
+                        <div class="results-grid">
                             <img src="images/pro-photo1.webp" alt="Pro Result 1">
-                        </div>
-                        <div class="output-item">
                             <img src="images/pro-photo2.webp" alt="Pro Result 2">
-                        </div>
-                        <div class="output-item">
                             <img src="images/pro-photo3.webp" alt="Pro Result 3">
-                        </div>
-                        <div class="output-item">
                             <img src="images/pro-photo4.webp" alt="Pro Result 4">
                         </div>
                     </div>
                 </div>
-
-                <div class="workflow-pillars">
-                    <div class="pillar">
-                        <i class="fa-solid fa-microchip"></i>
-                        <h3>AI-Driven Production</h3>
-                        <p>Eliminate the need for expensive photoshoots. High-end quality from any source.</p>
-                    </div>
-                    <div class="pillar">
-                        <i class="fa-solid fa-brain"></i>
-                        <h3>Market Intelligence</h3>
-                        <p>I study your niche and audience psychology to find the visual hook that stops the scroll.</p>
-                    </div>
-                    <div class="pillar">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <h3>Conversion-Focused</h3>
-                        <p>Color theory and lighting optimized for one goal: maximizing your CTR.</p>
-                    </div>
-                </div>
             </div>
+        </section>
+
+        <div class="workflow-pillars">
+            <div class="pillar">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>AI-Driven Production</h3>
+                <p>Eliminate the need for expensive photoshoots. High-end quality from any source.</p>
+            </div>
+            <div class="pillar">
+                <i class="fa-solid fa-brain"></i>
+                <h3>Market Intelligence</h3>
+                <p>I study your niche and audience psychology to find the visual hook that stops the scroll.</p>
+            </div>
+            <div class="pillar">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Conversion-Focused</h3>
+                <p>Color theory and lighting optimized for one goal: maximizing your CTR.</p>
+            </div>
+        </div>
+        </div>
         </section>
     </main>
 
@@ -288,21 +284,22 @@
                 // 1. Clicar na imagem da grade
                 if (e.target.matches('.portfolio-grid img')) {
                     const grid = e.target.closest('.portfolio-grid');
-                    const isSourceFrame = grid.id === 'source-frame-container';
-
                     const imgs = Array.from(grid.querySelectorAll('img'));
+
                     currentImages = imgs.map(img => img.src);
                     currentIndex = currentImages.indexOf(e.target.src);
 
                     modalImg.src = currentImages[currentIndex];
                     modal.style.display = 'flex';
 
-                    // Hide navigation if it's the single source frame
+                    // Smart Navigation visibility (hidden for standalone images)
                     const navBtns = modal.querySelectorAll('.g-nav-btn');
+                    const isStandalone = currentImages.length <= 1;
                     navBtns.forEach(btn => {
-                        btn.style.display = isSourceFrame ? 'none' : 'flex';
+                        btn.style.display = isStandalone ? 'none' : 'flex';
                     });
                 }
+
                 // 2. Navegação (Setas)
                 if (e.target.matches('.g-next')) changeImage(1);
                 if (e.target.matches('.g-prev')) changeImage(-1);
@@ -311,21 +308,22 @@
                 if (e.target.matches('.g-close-modal') || e.target.id === 'gallery-modal') {
                     modal.style.display = 'none';
                 }
-
-
             });
+
             function changeImage(step) {
-                if (currentImages.length === 0) return;
+                if (currentImages.length <= 1) return;
                 currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
                 modalImg.src = currentImages[currentIndex];
             }
 
-            // Suporte a Teclado
+            // Suporte a Teclado (ESC e Setas)
             document.addEventListener('keydown', (e) => {
-                if (modal && modal.style.display === 'flex') {
+                if (modal.style.display === 'flex') {
                     if (e.key === 'Escape') modal.style.display = 'none';
-                    if (e.key === 'ArrowRight') changeImage(1);
-                    if (e.key === 'ArrowLeft') changeImage(-1);
+                    if (currentImages.length > 1) {
+                        if (e.key === 'ArrowRight') changeImage(1);
+                        if (e.key === 'ArrowLeft') changeImage(-1);
+                    }
                 }
             });
         });

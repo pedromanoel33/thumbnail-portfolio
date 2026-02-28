@@ -57,9 +57,22 @@
         <section class="projects" id="projects">
             <div class="container">
                 <h2>Meus Projetos</h2>
-                <h3>Canal Jean Kleemann | Marketing Jurídico</h3>
+                <p class="projects-subtitle">Channels I've worked with</p>
 
-                <div class="projects-grid">
+                <!-- Project Tabs Navigation -->
+                <div class="projects-tabs">
+                    <button class="tab-btn active" data-target="jean">
+                        <img src="images/logo-jean.jpg" alt="Jean Kleemann Logo">
+                        <span>Jean Kleemann | Marketing Jurídico</span>
+                    </button>
+                    <button class="tab-btn" data-target="jesus">
+                        <img src="images/logo-jesus.webp" alt="Jesus Logo">
+                        <span>follow Jesus</span>
+                    </button>
+                </div>
+
+                <!-- Portfolio Grids -->
+                <div id="jean" class="portfolio-grid active-grid">
                     <div class="project-item">
                         <img src="images/pareca-caro.webp" alt="Pareça Caro">
                     </div>
@@ -83,6 +96,15 @@
                     </div>
                     <div class="project-item">
                         <img src="images/programa-aceleração-jurídica.webp" alt="Programa Aceleração Jurídica">
+                    </div>
+                </div>
+
+                <div id="jesus" class="portfolio-grid hidden-grid">
+                    <div class="project-item">
+                        <img src="images/jesus-thumb1.webp" alt="Projeto Jesus 1">
+                    </div>
+                    <div class="project-item">
+                        <img src="images/jesus-thumb2.webp" alt="Projeto Jesus 2">
                     </div>
                 </div>
             </div>
@@ -175,7 +197,61 @@
                 famContainer.classList.remove('active');
             }
         });
+
+        // --- NEW: Project Tabs Logic ---
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const grids = document.querySelectorAll('.portfolio-grid');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+
+                // Toggle Buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Toggle Grids
+                grids.forEach(grid => {
+                    grid.classList.add('hidden-grid');
+                    grid.classList.remove('active-grid');
+                });
+                const activeGrid = document.getElementById(targetId);
+                activeGrid.classList.remove('hidden-grid');
+                activeGrid.classList.add('active-grid');
+            });
+        });
+
+        // --- NEW: Image Modal (Lightbox) Logic ---
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-content');
+        const closeBtn = document.querySelector('.close-modal');
+        const thumbnails = document.querySelectorAll('.project-item img');
+
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                modalImg.src = thumb.src;
+                modal.classList.add('modal-visible');
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('modal-visible');
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
+
+    <!-- Image Modal (Lightbox) -->
+    <div id="image-modal" class="modal-hidden">
+        <span class="close-modal">&times;</span>
+        <img id="modal-content">
+    </div>
 </body>
 
 </html>

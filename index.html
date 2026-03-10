@@ -17,6 +17,16 @@
     <main>
         <!-- Hero Section -->
         <section class="hero" id="home">
+            <div class="aurora-bg">
+                <div class="aurora-gradients"></div>
+                <div class="aurora-blobs">
+                    <div class="blob blob-1"></div>
+                    <div class="blob blob-2"></div>
+                    <div class="blob blob-3"></div>
+                    <div class="blob blob-4"></div>
+                </div>
+                <div class="aurora-stars" id="auroraStars"></div>
+            </div>
             <div class="container hero-container">
                 <div class="hero-image">
                     <div class="profile-frame">
@@ -337,6 +347,32 @@
                 famContainer.classList.remove('active');
             }
         });
+
+        // --- NEW: Aurora Stars Generation ---
+        function initAuroraStars() {
+            const container = document.getElementById('auroraStars');
+            if (!container) return;
+            const starCount = 80;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = 2 + Math.random() * 5;
+                const maxOpacity = 0.2 + Math.random() * 0.6;
+
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.setProperty('--delay', `${delay}s`);
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--max-opacity', maxOpacity);
+
+                container.appendChild(star);
+            }
+        }
+        initAuroraStars();
 
         // --- NEW: Project Tabs Logic ---
         const tabBtns = document.querySelectorAll('.tab-btn');

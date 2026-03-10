@@ -70,16 +70,18 @@
                 <p class="projects-subtitle">Channels I've worked with</p>
 
                 <!-- Project Tabs Navigation -->
-                <div class="projects-tabs">
-                    <button class="tab-btn active" data-target="jean">
-                        <img src="images/logo-jean.jpg" alt="Jean Kleemann Logo">
-                        <span>Jean Kleemann | Marketing Jurídico</span>
-                    </button>
-                    <button class="tab-btn" data-target="jesus">
-                        <img src="images/logo-jesus.webp" alt="Jesus Logo">
-                        <span>follow Jesus</span>
-                    </button>
+                <div class="projects-tabs-center-wrapper">
+                    <div class="projects-tabs" id="projectsTabs">
+                        <button class="tab-btn active" data-target="jean"
+                            data-name="Jean Kleemann | Marketing Jurídico">
+                            <img src="images/logo-jean.jpg" alt="Jean Kleemann Logo">
+                        </button>
+                        <button class="tab-btn" data-target="jesus" data-name="follow Jesus">
+                            <img src="images/logo-jesus.webp" alt="Jesus Logo">
+                        </button>
+                    </div>
                 </div>
+                <div class="active-channel-name" id="activeChannelName">Jean Kleemann | Marketing Jurídico</div>
 
                 <!-- Portfolio Grids -->
                 <div id="jean" class="portfolio-grid active-grid">
@@ -106,6 +108,9 @@
                     </div>
                     <div class="project-item">
                         <img src="images/programa-aceleração-jurídica.webp" alt="Programa Aceleração Jurídica">
+                    </div>
+                    <div class="project-item">
+                        <img src="images/livro-proibido.webp" alt="Livro Proibido">
                     </div>
                 </div>
 
@@ -374,28 +379,39 @@
         }
         initAuroraStars();
 
-        // --- NEW: Project Tabs Logic ---
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const grids = document.querySelectorAll('.portfolio-grid');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const targetId = btn.getAttribute('data-target');
-
-                // Toggle Buttons
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Toggle Grids
-                grids.forEach(grid => {
-                    grid.classList.add('hidden-grid');
-                    grid.classList.remove('active-grid');
-                });
-                const activeGrid = document.getElementById(targetId);
-                activeGrid.classList.remove('hidden-grid');
-                activeGrid.classList.add('active-grid');
             });
         });
+
+        function initProjectTabs() {
+            // First jump without transition
+            projectTabs.style.transition = 'none';
+            centerActiveTab();
+
+            // Force reflow
+            projectTabs.offsetHeight;
+
+            // Restore transition
+            projectTabs.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            // Re-center after a short delay and on load to be sure
+            setTimeout(centerActiveTab, 100);
+        }
+
+
+        // Restore transition after a short delay
+        setTimeout(() => {
+            projectTabs.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        }, 50); // Small delay to ensure reflow
+
+        // Re-center on load and resize
+        window.addEventListener('load', centerActiveTab);
+        window.addEventListener('resize', centerActiveTab);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initProjectTabs();
+        });
+
 
         // --- Fail-safe Gallery Slider Logic (Event Delegation) ---
         document.addEventListener('DOMContentLoaded', () => {

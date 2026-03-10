@@ -264,7 +264,7 @@
     </div>
 
     <script>
-        // Copy functionality helper with visual feedback
+        // --- 1. Utility: Copy to Clipboard ---
         function setupClipboardCopy(btnId, tooltipId, textToCopy) {
             const btn = document.getElementById(btnId);
             const tooltip = document.getElementById(tooltipId);
@@ -273,72 +273,129 @@
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 navigator.clipboard.writeText(textToCopy).then(() => {
-                    // Visual feedback
                     btn.classList.add('active-copy');
                     tooltip.classList.add('show');
-
                     setTimeout(() => {
                         btn.classList.remove('active-copy');
                         tooltip.classList.remove('show');
-                    }, 2000); // Increased to 2 seconds
+                    }, 2000);
                 });
             });
         }
 
-        // Setup Buttons (Hero)
+        // Initialize all copy buttons
         setupClipboardCopy('copyEmail', 'emailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('copyDiscord', 'discordTooltip', 'pedro.7911');
-
-        // Setup Buttons (Portfolio Section)
         setupClipboardCopy('portfolioCopyEmail', 'portfolioEmailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('portfolioCopyDiscord', 'portfolioDiscordTooltip', 'pedro.7911');
-
-        // Setup Buttons (Methods Section)
         setupClipboardCopy('methodsCopyEmail', 'methodsEmailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('methodsCopyDiscord', 'methodsCopyDiscordTooltip', 'pedro.7911');
-
-        // Setup Buttons (FAM)
         setupClipboardCopy('famCopyEmail', 'famEmailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('famCopyDiscord', 'famDiscordTooltip', 'pedro.7911');
 
-        // Speed Dial Toggle (Desktop & Mobile)
+        // --- 2. Aurora Stars ---
+        function initAuroraStars() {
+            const container = document.getElementById('auroraStars');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.setProperty('--delay', `${Math.random() * 10}s`);
+                star.style.setProperty('--duration', `${2 + Math.random() * 5}s`);
+                star.style.setProperty('--max-opacity', 0.2 + Math.random() * 0.6);
+                container.appendChild(star);
+            }
+        }
+        initAuroraStars();
+
+        // --- 3. Project Tabs (Selector) Logic ---
+        const projectTabs = document.getElementById('projectsTabs');
+        const activeChannelName = document.getElementById('activeChannelName');
+        const grids = document.querySelectorAll('.portfolio-grid');
+
+        function centerActiveTab(instant = false) {
+            const activeBtn = document.querySelector('.tab-btn.active');
+            if (!activeBtn || !projectTabs) return;
+
+            if (instant) projectTabs.style.transition = 'none';
+            const containerHalf = projectTabs.parentElement.offsetWidth / 2;
+            const btnCenter = activeBtn.offsetLeft + activeBtn.offsetWidth / 2;
+            const tx = containerHalf - btnCenter;
+            projectTabs.style.transform = `translateX(${tx}px)`;
+
+            if (instant) {
+                projectTabs.offsetHeight; // Force reflow
+                projectTabs.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+        }
+
+        // Click Handler (Event Delegation for all tab buttons)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn || btn.classList.contains('active')) return;
+
+            const targetId = btn.getAttribute('data-target');
+            const newName = btn.getAttribute('data-name');
+
+            // UI Transitions
+            if (activeChannelName) activeChannelName.classList.add('fade-out');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            centerActiveTab();
+
+            setTimeout(() => {
+                if (activeChannelName) {
+                    activeChannelName.textContent = newName;
+                    activeChannelName.classList.remove('fade-out');
+                }
+            }, 300);
+
+            // Grid Transitions
+            grids.forEach(grid => {
+                grid.classList.add('hidden-grid');
+                grid.classList.remove('active-grid');
+            });
+            const activeGrid = document.getElementById(targetId);
+            if (activeGrid) {
+                activeGrid.classList.remove('hidden-grid');
+                activeGrid.classList.add('active-grid');
+            }
+        });
+
+        // --- 4. Speed Dials & FAM ---
         document.querySelectorAll('.speed-dial-container').forEach(container => {
             const mainBtn = container.querySelector('.main-dial-btn');
-            const icon = mainBtn.querySelector('i');
-
+            if (!mainBtn) return;
             mainBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Close other dials
                 document.querySelectorAll('.speed-dial-container').forEach(other => {
                     if (other !== container) other.classList.remove('active');
                 });
-
                 container.classList.toggle('active');
 
+                const icon = mainBtn.querySelector('i');
                 if (icon) {
-                    if (container.classList.contains('active')) {
-                        icon.className = 'fa-solid fa-minus btn-icon';
-                    } else {
-                        icon.className = 'fa-solid fa-message btn-icon';
-                    }
+                    icon.className = container.classList.contains('active') ?
+                        'fa-solid fa-minus btn-icon' : 'fa-solid fa-message btn-icon';
                 }
             });
         });
 
-        // Floating Action Menu (FAM) Toggle
         const famMainBtn = document.getElementById('famMainBtn');
         const famContainer = document.getElementById('famContainer');
-
         if (famMainBtn) {
             famMainBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                famContainer.classList.toggle('active');
+                if (famContainer) famContainer.classList.toggle('active');
             });
         }
 
-        // Global Close (Click Outside)
+        // Global Close
         document.addEventListener('click', (e) => {
-            // Close all Speed Dials
             document.querySelectorAll('.speed-dial-container').forEach(container => {
                 if (!container.contains(e.target)) {
                     container.classList.remove('active');
@@ -346,127 +403,75 @@
                     if (icon) icon.className = 'fa-solid fa-message btn-icon';
                 }
             });
-
-            // Close FAM
             if (famContainer && !famContainer.contains(e.target)) {
                 famContainer.classList.remove('active');
             }
         });
 
-        // --- NEW: Aurora Stars Generation ---
-        function initAuroraStars() {
-            const container = document.getElementById('auroraStars');
-            if (!container) return;
-            const starCount = 80;
+        // --- 5. Gallery Modal Logic ---
+        let currentImages = [];
+        let currentIndex = 0;
 
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const delay = Math.random() * 10;
-                const duration = 2 + Math.random() * 5;
-                const maxOpacity = 0.2 + Math.random() * 0.6;
-
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.setProperty('--delay', `${delay}s`);
-                star.style.setProperty('--duration', `${duration}s`);
-                star.style.setProperty('--max-opacity', maxOpacity);
-
-                container.appendChild(star);
-            }
-        }
-        initAuroraStars();
-
-            });
-        });
-
-        function initProjectTabs() {
-            // First jump without transition
-            projectTabs.style.transition = 'none';
-            centerActiveTab();
-
-            // Force reflow
-            projectTabs.offsetHeight;
-
-            // Restore transition
-            projectTabs.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-            // Re-center after a short delay and on load to be sure
-            setTimeout(centerActiveTab, 100);
-        }
-
-
-        // Restore transition after a short delay
-        setTimeout(() => {
-            projectTabs.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        }, 50); // Small delay to ensure reflow
-
-        // Re-center on load and resize
-        window.addEventListener('load', centerActiveTab);
-        window.addEventListener('resize', centerActiveTab);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initProjectTabs();
-        });
-
-
-        // --- Fail-safe Gallery Slider Logic (Event Delegation) ---
-        document.addEventListener('DOMContentLoaded', () => {
+        document.body.addEventListener('click', (e) => {
             const modal = document.getElementById('gallery-modal');
             const modalImg = document.getElementById('g-modal-img');
-            let currentImages = [];
-            let currentIndex = 0;
-            // Delegação de Eventos (À prova de falhas)
-            document.body.addEventListener('click', (e) => {
-                // 1. Clicar na imagem da grade ou seção methods
-                if (e.target.matches('.portfolio-grid img, .methods-block img')) {
-                    const container = e.target.closest('.portfolio-grid, .results-grid, .image-wrapper');
-                    const imgs = Array.from(container.querySelectorAll('img'));
 
-                    currentImages = imgs.map(img => img.src);
-                    currentIndex = currentImages.indexOf(e.target.src);
+            // Image Zoom Click
+            if (e.target.tagName === 'IMG' && e.target.closest('.portfolio-grid, .methods-block')) {
+                const container = e.target.closest('.portfolio-grid, .results-grid, .image-wrapper');
+                if (!container || !modal || !modalImg) return;
 
-                    modalImg.src = currentImages[currentIndex];
-                    modal.style.display = 'flex';
+                const imgs = Array.from(container.querySelectorAll('img'));
+                currentImages = imgs.map(img => img.src);
+                currentIndex = currentImages.indexOf(e.target.src);
 
-                    // Smart Navigation visibility (hidden for standalone images)
-                    const navBtns = modal.querySelectorAll('.g-nav-btn');
-                    const isStandalone = currentImages.length <= 1;
-                    navBtns.forEach(btn => {
-                        btn.style.display = isStandalone ? 'none' : 'flex';
-                    });
-                }
-
-                // 2. Navegação (Setas)
-                if (e.target.matches('.g-next')) changeImage(1);
-                if (e.target.matches('.g-prev')) changeImage(-1);
-
-                // 3. Fechar Modal (X ou fundo)
-                if (e.target.matches('.g-close-modal') || e.target.id === 'gallery-modal') {
-                    modal.style.display = 'none';
-                }
-            });
-
-            function changeImage(step) {
-                if (currentImages.length <= 1) return;
-                currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
                 modalImg.src = currentImages[currentIndex];
+                modal.style.display = 'flex';
+                modal.classList.add('g-modal-visible'); // Trigger CSS transitions if any
+
+                const isStandalone = currentImages.length <= 1;
+                modal.querySelectorAll('.g-nav-btn').forEach(btn => btn.style.display = isStandalone ? 'none' : 'flex');
             }
 
-            // Suporte a Teclado (ESC e Setas)
-            document.addEventListener('keydown', (e) => {
-                if (modal.style.display === 'flex') {
-                    if (e.key === 'Escape') modal.style.display = 'none';
-                    if (currentImages.length > 1) {
-                        if (e.key === 'ArrowRight') changeImage(1);
-                        if (e.key === 'ArrowLeft') changeImage(-1);
-                    }
+            // Navigation & Close
+            if (e.target.matches('.g-next')) changeImage(1);
+            if (e.target.matches('.g-prev')) changeImage(-1);
+            if (e.target.matches('.g-close-modal') || (modal && e.target === modal)) {
+                if (modal) {
+                    modal.style.display = 'none';
+                    modal.classList.remove('g-modal-visible');
                 }
-            });
+            }
         });
+
+        function changeImage(step) {
+            const modalImg = document.getElementById('g-modal-img');
+            if (!modalImg || currentImages.length <= 1) return;
+            currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
+            modalImg.src = currentImages[currentIndex];
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('gallery-modal');
+            if (modal && (modal.style.display === 'flex' || modal.classList.contains('g-modal-visible'))) {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                    modal.classList.remove('g-modal-visible');
+                }
+                if (currentImages.length > 1) {
+                    if (e.key === 'ArrowRight') changeImage(1);
+                    if (e.key === 'ArrowLeft') changeImage(-1);
+                }
+            }
+        });
+
+        // --- 6. Final Initialization ---
+        window.addEventListener('load', () => {
+            centerActiveTab(true);
+            // Backup center for dynamic fonts/images
+            setTimeout(() => centerActiveTab(true), 200);
+        });
+        window.addEventListener('resize', () => centerActiveTab(false));
     </script>
 
     <!-- New Gallery Slider Structure -->

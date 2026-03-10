@@ -463,6 +463,34 @@
             modalImg.src = currentImages[currentIndex];
         }
 
+        // --- Swipe Gestures for Modal ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const modal = document.getElementById('gallery-modal');
+        if (modal) {
+            modal.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            modal.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swiped Left -> Next Image
+                changeImage(1);
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                // Swiped Right -> Previous Image
+                changeImage(-1);
+            }
+        }
+
         document.addEventListener('keydown', (e) => {
             const modal = document.getElementById('gallery-modal');
             if (modal && (modal.style.display === 'flex' || modal.classList.contains('g-modal-visible'))) {

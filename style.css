@@ -1539,3 +1539,23 @@ body {
         font-size: 1.8rem;
     }
 }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+    padding: 4rem 0;
+    background-color: var(--bg-color);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.footer p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: var(--fw-regular);
+    opacity: 0.5;
+    letter-spacing: 0.5px;
+}

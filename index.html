@@ -465,29 +465,45 @@
 
         // --- Swipe Gestures for Modal ---
         let touchStartX = 0;
-        let touchEndX = 0;
+        let touchStartY = 0;
 
         const modal = document.getElementById('gallery-modal');
         if (modal) {
             modal.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
+                touchStartX = e.changedTouches[0].clientX;
+                touchStartY = e.changedTouches[0].clientY;
+            }, { passive: false });
+
+            modal.addEventListener('touchmove', e => {
+                // Prevent scrolling when swiping horizontally on the modal
+                const moveX = e.changedTouches[0].clientX;
+                const moveY = e.changedTouches[0].clientY;
+                if (Math.abs(moveX - touchStartX) > Math.abs(moveY - touchStartY)) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
 
             modal.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
             }, { passive: true });
         }
 
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            if (touchEndX < touchStartX - swipeThreshold) {
-                // Swiped Left -> Next Image
-                changeImage(1);
-            }
-            if (touchEndX > touchStartX + swipeThreshold) {
-                // Swiped Right -> Previous Image
-                changeImage(-1);
+        function handleSwipe(startX, endX, startY, endY) {
+            const threshold = 50;
+            const restraint = 100; // Limit vertical movement
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+
+            if (Math.abs(diffX) >= threshold && Math.abs(diffY) <= restraint) {
+                if (diffX < 0) {
+                    // Swiped Left -> Next
+                    changeImage(1);
+                } else {
+                    // Swiped Right -> Previous
+                    changeImage(-1);
+                }
             }
         }
 

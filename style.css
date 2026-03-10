@@ -1119,15 +1119,94 @@ body {
     padding: 80px 0;
     background-color: var(--bg-color);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.methods::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.methods .aurora-bg {
+    opacity: 1;
+    /* Reset base opacity to control layers specifically */
+}
+
+.methods .aurora-gradients {
+    opacity: 0.5;
+    /* Match Hero intensity */
+}
+
+.methods .aurora-blobs {
+    opacity: 0.45;
+    /* Match Hero intensity */
+    mix-blend-mode: screen;
+}
+
+.blob-small {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(70px);
+    /* More concentrated */
+}
+
+.b-small-1 {
+    top: 10%;
+    left: 15%;
+    background: rgba(185, 17, 14, 0.4);
+    animation: blob-oscillate 15s infinite alternate ease-in-out;
+}
+
+.b-small-2 {
+    bottom: 20%;
+    right: 15%;
+    background: rgba(135, 23, 21, 0.35);
+    animation: blob-oscillate 18s infinite alternate-reverse ease-in-out;
+}
+
+.b-small-3 {
+    top: 40%;
+    right: 25%;
+    background: rgba(185, 17, 14, 0.3);
+    animation: blob-oscillate 20s infinite alternate ease-in-out;
+}
+
+.b-small-4 {
+    bottom: 10%;
+    left: 30%;
+    background: rgba(74, 6, 5, 0.4);
+    animation: blob-oscillate 22s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes blob-oscillate {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(100px, 50px) scale(1.1);
+    }
 }
 
 .methods-header {
     margin-bottom: 50px;
+    position: relative;
+    z-index: 2;
 }
 
 .methods h2 {
     font-size: 2.2rem;
-    /* Reduced for better hierarchy */
     font-weight: 700;
     margin-bottom: 12px;
     letter-spacing: -1px;
@@ -1154,6 +1233,8 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
+    position: relative;
+    z-index: 2;
 }
 
 .methods-block {
@@ -1188,7 +1269,6 @@ body {
 .source-wrapper img {
     width: 100%;
     max-height: 280px;
-    /* Prevention of "gigantic" height */
     object-fit: cover;
     display: block;
 }
@@ -1245,17 +1325,13 @@ body {
     align-items: center;
     justify-content: center;
     color: var(--primary-red);
-    /* Pure black core for contrast */
     background: radial-gradient(circle, #000 0%, #000 45%, transparent 75%);
     width: 60px;
-    /* Reduced from 80px */
     height: 60px;
-    /* Reduced from 80px */
     border-radius: 50%;
     z-index: 10;
 }
 
-/* Internal subtle red highlight */
 .ai-icon::after {
     content: '';
     position: absolute;
@@ -1268,9 +1344,7 @@ body {
 
 .sparkle-svg {
     width: 24px;
-    /* Reduced from 32px */
     height: 24px;
-    /* Reduced from 32px */
     position: relative;
     z-index: 2;
     filter: drop-shadow(0 0 6px rgba(185, 17, 14, 0.8));
@@ -1279,23 +1353,17 @@ body {
 
 .ai-icon .small {
     width: 12px;
-    /* Reduced from 16px */
     height: 12px;
-    /* Reduced from 16px */
     position: absolute;
     top: 15px;
-    /* Adjusted position */
     right: 15px;
 }
 
 .ai-icon .smaller {
     width: 8px;
-    /* Reduced from 10px */
     height: 8px;
-    /* Reduced from 10px */
     position: absolute;
     bottom: 18px;
-    /* Adjusted position */
     left: 15px;
 }
 
@@ -1387,7 +1455,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(185, 17, 14, 0.18) 0%, transparent 40%);
+    background: radial-gradient(circle, rgba(185, 17, 14, 0.12) 0%, transparent 40%);
     pointer-events: none;
     z-index: 1;
     animation: glow-move 8s infinite linear;

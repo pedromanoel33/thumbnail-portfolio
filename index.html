@@ -491,7 +491,7 @@
         }
 
         function handleSwipe(startX, endX, startY, endY) {
-            const threshold = 50;
+            const threshold = 30; // More sensitive
             const restraint = 100; // Limit vertical movement
             const diffX = endX - startX;
             const diffY = endY - startY;

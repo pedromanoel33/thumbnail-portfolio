@@ -188,7 +188,7 @@ body {
     transform: translateX(-20px);
 }
 
-.speed-dial-container:hover .dial-options {
+.speed-dial-container.active .dial-options {
     opacity: 1;
     visibility: visible;
     transform: translateX(0);
@@ -245,9 +245,53 @@ body {
    Projects Section (Restored Styles with Tabs)
    ========================================================================== */
 .projects {
-    padding: 4rem 0 10rem 0;
+    padding: 4rem 0 6rem 0;
     text-align: center;
     background-color: var(--bg-color);
+}
+
+.section-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    width: 100%;
+}
+
+/* Adjust Speed Dial for Static Sections (Centered Expansion) */
+.section-cta .speed-dial-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin: 0 auto;
+    transition: var(--transition-smooth);
+}
+
+.section-cta .dial-options {
+    position: static;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    margin-left: 0;
+    transform: translateX(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    gap: 1.2rem;
+    overflow: hidden;
+}
+
+.section-cta .speed-dial-container.active .dial-options {
+    opacity: 1;
+    visibility: visible;
+    width: 200px;
+    /* Space for 3 icons + gaps */
+    margin-left: 1.8rem;
+    transform: translateX(0);
+}
+
+.section-cta .main-dial-btn {
+    transition: var(--transition-smooth);
 }
 
 .projects h2 {
@@ -894,12 +938,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    /* Tighter gap for mockup feel */
-    max-width: 900px;
-    /* Section scale limit */
+    gap: 40px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
 .methods-block {
@@ -908,8 +950,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    max-width: 400px;
-    /* Individual block limit */
+    max-width: 540px;
 }
 
 .image-wrapper {
@@ -922,6 +963,14 @@ body {
     justify-content: center;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: zoom-in;
+    transition: var(--transition-smooth);
+}
+
+.image-wrapper:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(185, 17, 14, 0.3);
 }
 
 .source-wrapper img {
@@ -935,7 +984,7 @@ body {
 .results-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 15px;
     width: 100%;
 }
 
@@ -945,6 +994,13 @@ body {
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: zoom-in;
+    transition: var(--transition-smooth);
+}
+
+.results-grid img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .caption {
@@ -960,6 +1016,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .connector-line {
@@ -967,6 +1024,181 @@ body {
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
     opacity: 0.8;
+}
+
+/* AI Icon Styles */
+.ai-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-red);
+    /* Pure black core for contrast */
+    background: radial-gradient(circle, #000 0%, #000 45%, transparent 75%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* Internal subtle red highlight */
+.ai-icon::after {
+    content: '';
+    position: absolute;
+    inset: 15%;
+    background: radial-gradient(circle, rgba(185, 17, 14, 0.3) 0%, transparent 70%);
+    z-index: 1;
+    border-radius: 50%;
+    animation: glow-pulse 2s infinite ease-in-out;
+}
+
+.sparkle-svg {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 6px rgba(185, 17, 14, 0.8));
+    animation: sparkle-pulse 2s infinite ease-in-out;
+}
+
+.ai-icon .small {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 22px;
+    right: 22px;
+}
+
+.ai-icon .smaller {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 24px;
+    left: 22px;
+}
+
+@keyframes sparkle-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 3px rgba(185, 17, 14, 0.6));
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 8px rgba(185, 17, 14, 1));
+    }
+}
+
+@keyframes glow-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Feature Boxes - Glassmorphism */
+.methods-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 5rem;
+    width: 100%;
+}
+
+.feature-box {
+    position: relative;
+    padding: 2.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    text-align: left;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.feature-box:hover {
+    border-color: rgba(185, 17, 14, 0.3);
+    transform: translateY(-5px);
+}
+
+.feature-box h3 {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-icon {
+    font-size: 1.8rem;
+    color: var(--primary-red);
+    margin-bottom: 1.2rem;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-box p {
+    font-size: var(--fs-h3);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.8;
+    position: relative;
+    z-index: 2;
+}
+
+/* Moving Glow Background */
+.box-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(185, 17, 14, 0.18) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 1;
+    animation: glow-move 8s infinite linear;
+}
+
+@keyframes glow-move {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(10%, 10%);
+    }
+
+    50% {
+        transform: translate(0, 20%);
+    }
+
+    75% {
+        transform: translate(-10%, 10%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Mobile Responsive Features */
+@media (max-width: 992px) {
+    .methods-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
 /* Mobile Responsive */

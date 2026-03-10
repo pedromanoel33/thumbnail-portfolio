@@ -107,6 +107,29 @@
                         <img src="images/jesus-thumb2.webp" alt="Projeto Jesus 2">
                     </div>
                 </div>
+
+                <!-- Portfolio CTA -->
+                <div class="section-cta">
+                    <div class="speed-dial-container">
+                        <button class="main-dial-btn" id="portfolioDial">
+                            <span>Let's work together</span>
+                            <i class="fa-solid fa-message btn-icon"></i>
+                        </button>
+                        <div class="dial-options">
+                            <button class="dial-btn" id="portfolioCopyEmail" title="Copy Email">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span class="tooltip" id="portfolioEmailTooltip">Copied!</span>
+                            </button>
+                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <button class="dial-btn" id="portfolioCopyDiscord" title="Copy Discord ID">
+                                <i class="fa-brands fa-discord"></i>
+                                <span class="tooltip" id="portfolioDiscordTooltip">Copied!</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -131,6 +154,17 @@
                     <!-- Center: Connector -->
                     <div class="methods-connector">
                         <div class="connector-line"></div>
+                        <div class="ai-icon">
+                            <svg class="sparkle-svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
+                            </svg>
+                            <svg class="sparkle-svg small" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
+                            </svg>
+                            <svg class="sparkle-svg smaller" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
+                            </svg>
+                        </div>
                     </div>
 
                     <!-- Right: Results -->
@@ -142,6 +176,52 @@
                             <img src="images/pro-photo4.webp" alt="Result 4">
                         </div>
                         <span class="caption">(Endless opportunities)</span>
+                    </div>
+                </div>
+
+                <div class="methods-features">
+                    <div class="feature-box">
+                        <div class="box-glow"></div>
+                        <i class="fa-solid fa-wand-magic-sparkles feature-icon"></i>
+                        <h3>Modern Aesthetics</h3>
+                        <p>High-end visual processing that makes any video frame look like a professional photoshoot.
+                        </p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="box-glow"></div>
+                        <i class="fa-solid fa-bullseye feature-icon"></i>
+                        <h3>Strategic Impact</h3>
+                        <p>Designed to maximize CTR and viewer retention through proven psychological triggers.</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="box-glow"></div>
+                        <i class="fa-solid fa-magnifying-glass-chart feature-icon"></i>
+                        <h3>Market Research</h3>
+                        <p>Every thumbnail is crafted by deeply understanding the ideal communication strategy for your
+                            specific audience.</p>
+                    </div>
+                </div>
+
+                <!-- Methods CTA -->
+                <div class="section-cta">
+                    <div class="speed-dial-container">
+                        <button class="main-dial-btn" id="methodsDial">
+                            <span>Let's work together</span>
+                            <i class="fa-solid fa-message btn-icon"></i>
+                        </button>
+                        <div class="dial-options">
+                            <button class="dial-btn" id="methodsCopyEmail" title="Copy Email">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span class="tooltip" id="methodsEmailTooltip">Copied!</span>
+                            </button>
+                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <button class="dial-btn" id="methodsCopyDiscord" title="Copy Discord ID">
+                                <i class="fa-brands fa-discord"></i>
+                                <span class="tooltip" id="methodsDiscordTooltip">Copied!</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,43 +274,65 @@
         setupClipboardCopy('copyEmail', 'emailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('copyDiscord', 'discordTooltip', 'pedro.7911');
 
+        // Setup Buttons (Portfolio Section)
+        setupClipboardCopy('portfolioCopyEmail', 'portfolioEmailTooltip', 'pedromanoelmcr@gmail.com');
+        setupClipboardCopy('portfolioCopyDiscord', 'portfolioDiscordTooltip', 'pedro.7911');
+
+        // Setup Buttons (Methods Section)
+        setupClipboardCopy('methodsCopyEmail', 'methodsEmailTooltip', 'pedromanoelmcr@gmail.com');
+        setupClipboardCopy('methodsCopyDiscord', 'methodsCopyDiscordTooltip', 'pedro.7911');
+
         // Setup Buttons (FAM)
         setupClipboardCopy('famCopyEmail', 'famEmailTooltip', 'pedromanoelmcr@gmail.com');
         setupClipboardCopy('famCopyDiscord', 'famDiscordTooltip', 'pedro.7911');
 
-        // Speed Dial Toggle for Mobile
-        const mainDial = document.getElementById('mainDial');
-        const dialContainer = document.querySelector('.speed-dial-container');
-        const mainIcon = mainDial ? mainDial.querySelector('i') : null;
+        // Speed Dial Toggle (Desktop & Mobile)
+        document.querySelectorAll('.speed-dial-container').forEach(container => {
+            const mainBtn = container.querySelector('.main-dial-btn');
+            const icon = mainBtn.querySelector('i');
 
-        if (mainDial) {
-            mainDial.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768) {
-                    dialContainer.classList.toggle('active');
+            mainBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close other dials
+                document.querySelectorAll('.speed-dial-container').forEach(other => {
+                    if (other !== container) other.classList.remove('active');
+                });
 
-                    if (mainIcon) {
-                        if (dialContainer.classList.contains('active')) {
-                            mainIcon.className = 'fa-solid fa-plus btn-icon';
-                        } else {
-                            mainIcon.className = 'fa-solid fa-message btn-icon';
-                        }
+                container.classList.toggle('active');
+
+                if (icon) {
+                    if (container.classList.contains('active')) {
+                        icon.className = 'fa-solid fa-minus btn-icon';
+                    } else {
+                        icon.className = 'fa-solid fa-message btn-icon';
                     }
                 }
             });
-        }
+        });
 
         // Floating Action Menu (FAM) Toggle
         const famMainBtn = document.getElementById('famMainBtn');
         const famContainer = document.getElementById('famContainer');
 
         if (famMainBtn) {
-            famMainBtn.addEventListener('click', () => {
+            famMainBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 famContainer.classList.toggle('active');
             });
         }
 
-        // Close FAM when clicking outside
+        // Global Close (Click Outside)
         document.addEventListener('click', (e) => {
+            // Close all Speed Dials
+            document.querySelectorAll('.speed-dial-container').forEach(container => {
+                if (!container.contains(e.target)) {
+                    container.classList.remove('active');
+                    const icon = container.querySelector('.main-dial-btn i');
+                    if (icon) icon.className = 'fa-solid fa-message btn-icon';
+                }
+            });
+
+            // Close FAM
             if (famContainer && !famContainer.contains(e.target)) {
                 famContainer.classList.remove('active');
             }
@@ -267,10 +369,10 @@
             let currentIndex = 0;
             // Delegação de Eventos (À prova de falhas)
             document.body.addEventListener('click', (e) => {
-                // 1. Clicar na imagem da grade
-                if (e.target.matches('.portfolio-grid img')) {
-                    const grid = e.target.closest('.portfolio-grid');
-                    const imgs = Array.from(grid.querySelectorAll('img'));
+                // 1. Clicar na imagem da grade ou seção methods
+                if (e.target.matches('.portfolio-grid img, .methods-block img')) {
+                    const container = e.target.closest('.portfolio-grid, .results-grid, .image-wrapper');
+                    const imgs = Array.from(container.querySelectorAll('img'));
 
                     currentImages = imgs.map(img => img.src);
                     currentIndex = currentImages.indexOf(e.target.src);

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thumbnail Portfolio | Pedro</title>
+    <meta name="description" content="Professional thumbmaker with over 2 years of experience. I craft high-impact thumbnails that grow channels and increase CTR.">
     <link rel="icon" type="image/png" href="images/favicon pedro.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Preload Hero Image -->
+    <link rel="preload" as="image" href="images/profile-draw.webp">
 </head>
 
 <body>
@@ -31,7 +34,7 @@
             <div class="container hero-container">
                 <div class="hero-image">
                     <div class="profile-frame">
-                        <img src="images/profile draw.jpg" alt="Pedro">
+                        <img src="images/profile-draw.webp" alt="Pedro" width="280" height="280">
                     </div>
                 </div>
                 <div class="hero-content">
@@ -42,19 +45,19 @@
 
                     <!-- Speed Dial Contact -->
                     <div class="speed-dial-container">
-                        <button class="main-dial-btn" id="mainDial">
+                        <button class="main-dial-btn" id="mainDial" aria-label="Let's Talk Menu">
                             <span>Let's Talk</span>
                             <i class="fa-solid fa-message btn-icon"></i>
                         </button>
                         <div class="dial-options">
-                            <button class="dial-btn" id="copyEmail" title="Copy Email">
+                            <button class="dial-btn" id="copyEmail" title="Copy Email" aria-label="Copy Email Address">
                                 <i class="fa-solid fa-envelope"></i>
                                 <span class="tooltip" id="emailTooltip">Copied!</span>
                             </button>
-                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                            <a href="https://x.com/pedro4thumbs" target="_blank" rel="noopener" class="dial-btn" title="X / Twitter" aria-label="Visit X / Twitter">
                                 <i class="fa-brands fa-x-twitter"></i>
                             </a>
-                            <button class="dial-btn" id="copyDiscord" title="Copy Discord ID">
+                            <button class="dial-btn" id="copyDiscord" title="Copy Discord ID" aria-label="Copy Discord ID">
                                 <i class="fa-brands fa-discord"></i>
                                 <span class="tooltip" id="discordTooltip">Copied!</span>
                             </button>
@@ -74,11 +77,11 @@
                 <div class="projects-tabs-center-wrapper">
                     <div class="projects-tabs" id="projectsTabs">
                         <button class="tab-btn active" data-target="jean"
-                            data-name="Jean Kleemann | Marketing Jurídico">
-                            <img src="images/logo-jean.jpg" alt="Jean Kleemann Logo">
+                            data-name="Jean Kleemann | Marketing Jurídico" aria-label="Jean Kleemann Portfolio">
+                            <img src="images/logo-jean.jpg" alt="Jean Kleemann Logo" width="65" height="65" loading="lazy">
                         </button>
-                        <button class="tab-btn" data-target="jesus" data-name="follow Jesus">
-                            <img src="images/logo-jesus.webp" alt="Jesus Logo">
+                        <button class="tab-btn" data-target="jesus" data-name="follow Jesus" aria-label="Jesus Portfolio">
+                            <img src="images/logo-jesus.webp" alt="Jesus Logo" width="65" height="65" loading="lazy">
                         </button>
                     </div>
                 </div>
@@ -87,59 +90,59 @@
                 <!-- Portfolio Grids -->
                 <div id="jean" class="portfolio-grid active-grid">
                     <div class="project-item">
-                        <img src="images/pareca-caro.webp" alt="Pareça Caro">
+                        <img src="images/pareca-caro.webp" alt="Pareça Caro" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/novo-cliente-24h.webp" alt="Novo Cliente 24h">
+                        <img src="images/novo-cliente-24h.webp" alt="Novo Cliente 24h" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/advogando-agro.webp" alt="Advogando no Agro">
+                        <img src="images/advogando-agro.webp" alt="Advogando no Agro" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/cliente-sumiu.webp" alt="Cliente Sumiu">
+                        <img src="images/cliente-sumiu.webp" alt="Cliente Sumiu" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/honorário-broxante.webp" alt="Honorário Broxante">
+                        <img src="images/honorário-broxante.webp" alt="Honorário Broxante" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/90-dos-advogados.webp" alt="90 dos advogados">
+                        <img src="images/90-dos-advogados.webp" alt="90 dos advogados" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/isso-não-funciona-mais.webp" alt="Isso não funciona mais">
+                        <img src="images/isso-não-funciona-mais.webp" alt="Isso não funciona mais" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/programa-aceleração-jurídica.webp" alt="Programa Aceleração Jurídica">
+                        <img src="images/programa-aceleração-jurídica.webp" alt="Programa Aceleração Jurídica" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/livro-proibido.webp" alt="Livro Proibido">
+                        <img src="images/livro-proibido.webp" alt="Livro Proibido" width="1280" height="720" loading="lazy">
                     </div>
                 </div>
 
                 <div id="jesus" class="portfolio-grid hidden-grid">
                     <div class="project-item">
-                        <img src="images/jesus-thumb1.webp" alt="Projeto Jesus 1">
+                        <img src="images/jesus-thumb1.webp" alt="Projeto Jesus 1" width="1280" height="720" loading="lazy">
                     </div>
                     <div class="project-item">
-                        <img src="images/jesus-thumb2.webp" alt="Projeto Jesus 2">
+                        <img src="images/jesus-thumb2.webp" alt="Projeto Jesus 2" width="1280" height="720" loading="lazy">
                     </div>
                 </div>
 
                 <!-- Portfolio CTA -->
                 <div class="section-cta">
                     <div class="speed-dial-container">
-                        <button class="main-dial-btn" id="portfolioDial">
+                        <button class="main-dial-btn" id="portfolioDial" aria-label="Work With Me Menu">
                             <span>Let's work together</span>
                             <i class="fa-solid fa-message btn-icon"></i>
                         </button>
                         <div class="dial-options">
-                            <button class="dial-btn" id="portfolioCopyEmail" title="Copy Email">
+                            <button class="dial-btn" id="portfolioCopyEmail" title="Copy Email" aria-label="Copy Email Address">
                                 <i class="fa-solid fa-envelope"></i>
                                 <span class="tooltip" id="portfolioEmailTooltip">Copied!</span>
                             </button>
-                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                            <a href="https://x.com/pedro4thumbs" target="_blank" rel="noopener" class="dial-btn" title="X / Twitter" aria-label="Visit X / Twitter">
                                 <i class="fa-brands fa-x-twitter"></i>
                             </a>
-                            <button class="dial-btn" id="portfolioCopyDiscord" title="Copy Discord ID">
+                            <button class="dial-btn" id="portfolioCopyDiscord" title="Copy Discord ID" aria-label="Copy Discord ID">
                                 <i class="fa-brands fa-discord"></i>
                                 <span class="tooltip" id="portfolioDiscordTooltip">Copied!</span>
                             </button>
@@ -171,7 +174,7 @@
                     <!-- Left: Source -->
                     <div class="methods-block methods-left">
                         <div class="image-wrapper source-wrapper">
-                            <img src="images/frame-video.webp" alt="Frame video">
+                            <img src="images/frame-video.webp" alt="Frame video" width="600" height="337" loading="lazy">
                         </div>
                         <span class="caption">(Frame video)</span>
                     </div>
@@ -194,10 +197,10 @@
                     <!-- Right: Results -->
                     <div class="methods-block methods-right">
                         <div class="results-grid">
-                            <img src="images/pro-photo1.webp" alt="Result 1">
-                            <img src="images/pro-photo2.webp" alt="Result 2">
-                            <img src="images/pro-photo3.webp" alt="Result 3">
-                            <img src="images/pro-photo4.webp" alt="Result 4">
+                            <img src="images/pro-photo1.webp" alt="Result 1" width="500" height="500" loading="lazy">
+                            <img src="images/pro-photo2.webp" alt="Result 2" width="500" height="500" loading="lazy">
+                            <img src="images/pro-photo3.webp" alt="Result 3" width="500" height="500" loading="lazy">
+                            <img src="images/pro-photo4.webp" alt="Result 4" width="500" height="500" loading="lazy">
                         </div>
                         <span class="caption">(Endless opportunities)</span>
                     </div>
@@ -229,19 +232,19 @@
                 <!-- Methods CTA -->
                 <div class="section-cta">
                     <div class="speed-dial-container">
-                        <button class="main-dial-btn" id="methodsDial">
+                        <button class="main-dial-btn" id="methodsDial" aria-label="Work With Me Menu">
                             <span>Let's work together</span>
                             <i class="fa-solid fa-message btn-icon"></i>
                         </button>
                         <div class="dial-options">
-                            <button class="dial-btn" id="methodsCopyEmail" title="Copy Email">
+                            <button class="dial-btn" id="methodsCopyEmail" title="Copy Email" aria-label="Copy Email Address">
                                 <i class="fa-solid fa-envelope"></i>
                                 <span class="tooltip" id="methodsEmailTooltip">Copied!</span>
                             </button>
-                            <a href="https://x.com/pedro4thumbs" target="_blank" class="dial-btn" title="X / Twitter">
+                            <a href="https://x.com/pedro4thumbs" target="_blank" rel="noopener" class="dial-btn" title="X / Twitter" aria-label="Visit X / Twitter">
                                 <i class="fa-brands fa-x-twitter"></i>
                             </a>
-                            <button class="dial-btn" id="methodsCopyDiscord" title="Copy Discord ID">
+                            <button class="dial-btn" id="methodsCopyDiscord" title="Copy Discord ID" aria-label="Copy Discord ID">
                                 <i class="fa-brands fa-discord"></i>
                                 <span class="tooltip" id="methodsDiscordTooltip">Copied!</span>
                             </button>
@@ -258,14 +261,14 @@
     <!-- Floating Action Menu (FAM) - Root Level -->
     <div class="fam-container" id="famContainer">
         <div class="fam-options">
-            <button class="fam-btn" id="famCopyEmail" title="Copy Email">
+            <button class="fam-btn" id="famCopyEmail" title="Copy Email" aria-label="Copy Email Address">
                 <i class="fa-solid fa-envelope"></i>
                 <span class="tooltip" id="famEmailTooltip">Copied!</span>
             </button>
-            <a href="https://x.com/pedro4thumbs" target="_blank" class="fam-btn" title="X / Twitter">
+            <a href="https://x.com/pedro4thumbs" target="_blank" rel="noopener" class="fam-btn" title="X / Twitter" aria-label="Visit X / Twitter">
                 <i class="fa-brands fa-x-twitter"></i>
             </a>
-            <button class="fam-btn" id="famCopyDiscord" title="Copy Discord ID">
+            <button class="fam-btn" id="famCopyDiscord" title="Copy Discord ID" aria-label="Copy Discord ID">
                 <i class="fa-brands fa-discord"></i>
                 <span class="tooltip" id="famDiscordTooltip">Copied!</span>
             </button>

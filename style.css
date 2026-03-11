@@ -1477,6 +1477,15 @@ body {
     .methods h2 {
         font-size: 1.8rem;
     }
+
+    /* Mobile Performance: Reduce rendering intensity */
+    .aurora-blobs {
+        filter: blur(60px) !important;
+    }
+
+    .blob-small {
+        filter: blur(40px) !important;
+    }
 }
 
 /* ==========================================================================

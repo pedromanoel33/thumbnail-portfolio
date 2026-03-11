@@ -355,7 +355,7 @@ body {
     z-index: 10;
     box-shadow: 0 12px 24px rgba(185, 17, 14, 0.25);
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible; /* Prevent clipping during morphing */
 }
 
 .main-dial-btn:hover {
@@ -469,7 +469,7 @@ body {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     gap: 1.2rem;
-    overflow: hidden;
+    overflow: visible; /* Prevent tooltip and shape clipping */
 }
 
 .section-cta .speed-dial-container.active .dial-options {
@@ -998,6 +998,13 @@ body {
         margin: 0;
     }
 
+    /* Shrink the X icon inside the morphed circle */
+    .speed-dial-container.active .main-dial-btn svg.btn-icon {
+        width: 16px;
+        height: 16px;
+        stroke-width: 3;
+    }
+
     .dial-options {
         position: relative;
         left: auto;
@@ -1017,11 +1024,11 @@ body {
     }
 
     .speed-dial-container.active .dial-options {
-        height: auto;
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
         height: auto;
+        overflow: visible; /* Allow tooltips on mobile */
     }
 
     /* Tooltip adjustments for mobile */

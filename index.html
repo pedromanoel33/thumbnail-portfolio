@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -313,6 +314,7 @@
             const container = document.getElementById('auroraStars');
             if (!container) return;
             container.innerHTML = '';
+            const fragment = document.createDocumentFragment();
             for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -321,8 +323,9 @@
                 star.style.setProperty('--delay', `${Math.random() * 10}s`);
                 star.style.setProperty('--duration', `${2 + Math.random() * 5}s`);
                 star.style.setProperty('--max-opacity', 0.2 + Math.random() * 0.6);
-                container.appendChild(star);
+                fragment.appendChild(star);
             }
+            container.appendChild(fragment);
         }
         initAuroraStars();
 

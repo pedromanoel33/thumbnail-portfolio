@@ -38,6 +38,16 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+::selection {
+    background-color: var(--primary-red);
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: var(--primary-red);
+    color: #fff;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -115,6 +125,7 @@ body {
         radial-gradient(circle at 80% 70%, rgba(185, 17, 14, 0.15) 0%, transparent 70%),
         radial-gradient(circle at 50% 50%, rgba(74, 6, 5, 0.4) 0%, transparent 80%);
     animation: aurora-pulse 12s infinite alternate ease-in-out;
+    will-change: transform, opacity;
 }
 
 .aurora-blobs {
@@ -128,6 +139,7 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
+    will-change: transform;
 }
 
 .blob-1 {
@@ -184,6 +196,7 @@ body {
     border-radius: 50%;
     opacity: 0;
     animation: star-twinkle var(--duration, 3.5s) infinite var(--delay, 0s);
+    will-change: transform, opacity;
 }
 
 @keyframes aurora-pulse {
